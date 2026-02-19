@@ -30,7 +30,7 @@ export const settingsUiComponent = {
 
       // スピード調整
       if (config.speed !== undefined) {
-        this.createSlider(section, '移動速度', config.speed, 0.1, 10.0, 0.1, (val) => {
+        this.createSlider(section, '移動速度', config.speed, 0.1, 20.0, 0.1, (val) => {
           config.speed = parseFloat(val);
           this.notifyUpdate(markerName);
         });
