@@ -219,7 +219,13 @@ export const markerMoveComponent = {
           })
 
           // 校長先生にもアニメーションミキサーを適用（動く場合）
-          principalEntity.setAttribute('animation-mixer', { clip: '*', loop: 'repeat' })
+          const model = principalEntity.getObject3D('mesh')
+          if (model && model.animations && model.animations.length > 0) {
+            console.log('Principal animations:', model.animations.map(a => a.name))
+            principalEntity.setAttribute('animation-mixer', { clip: '*', loop: 'repeat' })
+          } else {
+            console.warn('Principal model has no animations or mesh not found')
+          }
         })
       }
 

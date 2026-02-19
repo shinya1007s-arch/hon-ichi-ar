@@ -38,9 +38,9 @@
   pointer-events: auto;
 }
 
-#settingsPanel {
   position: absolute;
-  bottom: 20px;
+  top: 50px; /* Move to top to allow more space downwards, or keep bottom */
+  bottom: 20px; /* Stretch to fill vertical space if needed, or use max-height */
   left: 10px;
   z-index: 200;
   background: rgba(0, 0, 0, 0.8);
@@ -48,9 +48,11 @@
   border-radius: 10px;
   color: white;
   font-family: sans-serif;
-  width: 240px;
+  width: 260px; /* Slightly wider */
   pointer-events: auto;
-  transition: opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  max-height: 80vh; /* Limit height */
+  overflow-y: auto; /* Enable scrolling */
 }
 
 .hidden {
