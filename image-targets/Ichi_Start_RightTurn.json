@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/Ichi_Start_RightTurn_target.jpeg",
+  "name": "Ichi_Start_RightTurn",
+  "type": "PLANAR",
+  "properties": {
+    "top": 219,
+    "left": 0,
+    "width": 768,
+    "height": 1024,
+    "isRotated": false,
+    "originalWidth": 768,
+    "originalHeight": 1376
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": true,
+  "created": 1771496052582,
+  "updated": 1771496052582
+}
