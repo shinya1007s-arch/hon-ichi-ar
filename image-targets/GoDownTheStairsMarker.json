@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/GoDownTheStairsMarker_target.png",
+  "name": "GoDownTheStairsMarker",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 517,
+    "width": 944,
+    "height": 1259,
+    "isRotated": false,
+    "originalWidth": 2000,
+    "originalHeight": 1259
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": true,
+  "created": 1764822266024,
+  "updated": 1764822266024
+}

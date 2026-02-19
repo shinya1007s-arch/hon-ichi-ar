@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/RightMarker_target.png",
+  "name": "RightMarker",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 15,
+    "width": 600,
+    "height": 800,
+    "isRotated": false,
+    "originalWidth": 1280,
+    "originalHeight": 800
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": true,
+  "created": 1762075361520,
+  "updated": 1762075361520
+}
