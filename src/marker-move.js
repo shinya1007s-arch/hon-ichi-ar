@@ -7,7 +7,7 @@ const MARKER_CONFIG = {
   'Ichi_Start_RightTurn': {
     type: 'turn_sequence',
     model: '#ichiModel',   // 使用する3DモデルのID
-    message: '【右折】開始', // 画面に表示するメッセージ
+    message: 'スタート【右折】開始', // 画面に表示するメッセージ
     speed: 0.5,            // 移動速度 (m/s)
     scale: 5.0,            // モデルの大きさ
     timeBeforeTurn: 3000,  // 曲がるまでの直進時間 (ミリ秒)
@@ -19,7 +19,7 @@ const MARKER_CONFIG = {
   'Hon_Start_LeftTurn': {
     type: 'turn_sequence',
     model: '#ichiModel',
-    message: '【左折】開始',
+    message: 'スタート【左折】開始',
     speed: 0.5,
     scale: 5.0,
     timeBeforeTurn: 3000,
@@ -48,18 +48,18 @@ const MARKER_CONFIG = {
   }
 }
 
-// 以下のマーカーは現在無効化されています（設定を残しておきたい場合はここに書いてください）
-// 'ForwardMarker', 'BackMarker', 'LeftMarker', 'RightMarker' は現在使用していません
-
 // ============================================================================
-// システムロジック（ここより下は基本的に触らないでOK）
+// システムロジック
 // ============================================================================
 
 export const markerMoveComponent = {
   schema: {
-    // これらのデフォルト値は MARKER_CONFIG がない場合のフォールバックとして使われます
+    // これらのプロパティは setAttribute で外部から変更可能です（UIスラッシュ等）
     speed: { default: 0.5 },
     modelScale: { default: 5.0 },
+    timeBeforeTurn: { default: 3000 },
+    timeAfterTurn: { default: 3000 },
+    turnAngle: { default: 0 },
   },
 
   init() {
@@ -71,32 +71,89 @@ export const markerMoveComponent = {
     this.modelEntity = null
     this.state = 'scanning-marker'
 
-    // 現在認識しているマーカーの設定を保持する変数
+    // 現在認識しているマーカーの静的設定（モデルIDやメッセージなど）
     this.currentConfig = null
     this.timer1 = null
     this.timer2 = null
 
+    // UI要素の参照（認識時に値をセットするため）
+    this.uiElements = {
+      speed: document.getElementById('speedRange'),
+      scale: document.getElementById('scaleRange'),
+      before: document.getElementById('beforeRange'),
+      after: document.getElementById('afterRange'),
+      valSpeed: document.getElementById('val-speed'),
+      valScale: document.getElementById('val-scale'),
+      valBefore: document.getElementById('val-before'),
+      valAfter: document.getElementById('val-after'),
+    }
+
     this.el.addEventListener('xrimagefound', e => this.onImageFound(e))
     this.ground.addEventListener('click', e => this.onGroundClick(e))
+  },
+
+  update(oldData) {
+    if (this.modelEntity && this.data.modelScale !== oldData.modelScale) {
+      const s = this.data.modelScale
+      this.modelEntity.setAttribute('scale', `${s} ${s} ${s}`)
+
+      // 校長先生も追従させる
+      const principals = document.querySelectorAll('[gltf-model="#principalModel"]')
+      principals.forEach(p => p.setAttribute('scale', `${s} ${s} ${s}`))
+    }
   },
 
   onImageFound(event) {
     if (this.state === 'moving' || this.state === 'goal-display') return
 
     const markerName = event.detail.name
-    // 設定リストから該当するマーカーの設定を取得
     const config = MARKER_CONFIG[markerName]
 
-    // 設定がない（または無効化されている）マーカーなら何もしない
     if (!config) return
 
     this.currentConfig = config
+
+    // 【UI連携】現在のマーカーの設定値をコンポーネント自身に反映させる
+    // これにより、UIの初期値がマーカーの設定と一致し、スライダー操作も有効になる
+    const newSpeed = config.speed !== undefined ? config.speed : 0.5
+    const newScale = config.scale !== undefined ? config.scale : 5.0
+    const newBefore = config.timeBeforeTurn !== undefined ? config.timeBeforeTurn : 3000
+    const newAfter = config.timeAfterTurn !== undefined ? config.timeAfterTurn : 3000
+    const newAngle = config.turnAngle !== undefined ? config.turnAngle : 0
+
+    this.el.setAttribute('marker-move', {
+      speed: newSpeed,
+      modelScale: newScale,
+      timeBeforeTurn: newBefore,
+      timeAfterTurn: newAfter,
+      turnAngle: newAngle
+    })
+
+    // UIのスライダーと表示数値も更新する
+    if (this.uiElements.speed) {
+      this.uiElements.speed.value = newSpeed
+      this.uiElements.valSpeed.innerText = newSpeed
+    }
+    if (this.uiElements.scale) {
+      this.uiElements.scale.value = newScale
+      this.uiElements.valScale.innerText = newScale
+    }
+    if (this.uiElements.before) {
+      // UIは「秒」単位、内部は「ミリ秒」単位なので変換
+      const sec = newBefore / 1000
+      this.uiElements.before.value = sec
+      this.uiElements.valBefore.innerText = sec
+    }
+    if (this.uiElements.after) {
+      const sec = newAfter / 1000
+      this.uiElements.after.value = sec
+      this.uiElements.valAfter.innerText = sec
+    }
 
     const cameraQuaternion = this.camera.object3D.quaternion
     const euler = new THREE.Euler().setFromQuaternion(cameraQuaternion, 'YXZ')
     const yawOnlyQuaternion = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, euler.y, 0))
 
-    // 基本は手前（Z軸マイナス方向）に向かってくる
     let baseDirection = new THREE.Vector3(0, 0, -1)
     baseDirection.applyQuaternion(yawOnlyQuaternion)
     this.modelDirection.copy(baseDirection)
@@ -115,28 +172,52 @@ export const markerMoveComponent = {
 
     this.prompt.style.display = 'none'
     const touchPoint = event.detail.intersection.point
+
+    // ===============================================
+    // メインモデルの生成
+    // ===============================================
     const newElement = document.createElement('a-entity')
     newElement.setAttribute('position', touchPoint)
-
-    // 基本の向きをセット
     this.updateRotation(newElement, this.modelDirection)
-
     newElement.setAttribute('visible', 'false')
-    // 初期スケールは極小にしておく（アニメーションで大きくする）
     newElement.setAttribute('scale', '0.0001 0.0001 0.0001')
-
-    // GLTFモデルを割り当て
     newElement.setAttribute('gltf-model', this.currentConfig.model)
     this.sceneEl.appendChild(newElement)
     this.modelEntity = newElement
 
-    newElement.addEventListener('model-loaded', () => {
-      const config = this.currentConfig
+    // ===============================================
+    // 【新機能】ゴールの時の校長先生出現確率 (46%)
+    // ===============================================
+    let principalEntity = null
+    if (this.currentConfig.type === 'goal') {
+      if (Math.random() <= 0.46) { // 46%以下の確率
+        principalEntity = document.createElement('a-entity')
+        // メインモデルの少し横（ローカル座標系で X+1.5m くらい）に配置したいが、
+        // 簡易的にワールド座標で少しずらす（完全に重ならないように）
+        const offset = new THREE.Vector3(1.5, 0, 0)
+        offset.applyQuaternion(newElement.object3D.quaternion) // メインモデルの向きに合わせて横にずらす
+        const pPos = touchPoint.clone().add(offset)
 
-      // ゴールモードの場合のみ、モデルロード後に180度反転させる（元のロジック維持）
+        principalEntity.setAttribute('position', pPos)
+        // 校長先生もこちらを向く（またはメインモデルと同じ向き）
+        this.updateRotation(principalEntity, this.modelDirection)
+
+        principalEntity.setAttribute('visible', 'false')
+        principalEntity.setAttribute('scale', '0.0001 0.0001 0.0001')
+        principalEntity.setAttribute('gltf-model', '#principalModel')
+        this.sceneEl.appendChild(principalEntity)
+
+        // ゴールなので180度反転（校長先生も）
+        // 注: まだロードされていないのでここではrotation属性だけセットしておく手もあるが、
+        // ロードイベント内で処理する方が安全。
+      }
+    }
+
+    newElement.addEventListener('model-loaded', () => {
+      const config = this.currentConfig // ここでは this.currentConfig を参照（静的プロパティ用）
+      // 数値系は this.data を参照する（UI調整後かもしれないので）
+
       if (config.type === 'goal') {
-        // newElement.object3D.rotation.y += Math.PI // コメントアウト: object3D直接操作はA-Frameと競合する可能性あり
-        // 代わりに rotation属性を更新
         const currentRotation = newElement.getAttribute('rotation')
         newElement.setAttribute('rotation', {
           x: currentRotation.x,
@@ -148,8 +229,7 @@ export const markerMoveComponent = {
       newElement.setAttribute('visible', 'true')
       newElement.setAttribute('animation-mixer', { clip: '*', loop: 'repeat' })
 
-      // スケールアニメーション
-      const targetScale = config.scale || 5.0
+      const targetScale = this.data.modelScale // 【変更】this.data (UI値) を使用
       newElement.setAttribute('animation', {
         property: 'scale',
         to: `${targetScale} ${targetScale} ${targetScale}`,
@@ -157,6 +237,28 @@ export const markerMoveComponent = {
         dur: 800,
         fill: 'forwards',
       })
+
+      // 校長先生がいる場合のアニメーションと回転設定
+      if (principalEntity) {
+        principalEntity.addEventListener('model-loaded', () => {
+          // 校長先生も180度反転（ゴール時）
+          const pRot = principalEntity.getAttribute('rotation')
+          principalEntity.setAttribute('rotation', {
+            x: pRot.x,
+            y: pRot.y + 180,
+            z: pRot.z
+          })
+          principalEntity.setAttribute('visible', 'true')
+          // 校長先生は少し小さめかもしれないが、とりあえず同じスケール設定にする
+          principalEntity.setAttribute('animation', {
+            property: 'scale',
+            to: `${targetScale} ${targetScale} ${targetScale}`,
+            easing: 'easeOutElastic',
+            dur: 800,
+            fill: 'forwards',
+          })
+        })
+      }
 
       setTimeout(() => {
         if (config.type === 'goal') {
@@ -166,9 +268,8 @@ export const markerMoveComponent = {
           this.state = 'moving'
           this.prompt.innerHTML = '移動中...<br>(タップで停止)'
 
-          // ターンシーケンスがある場合のみタイマーセット
           if (config.type === 'turn_sequence') {
-            this.startTurnSequence(newElement, config)
+            this.startTurnSequence(newElement)
           }
         }
         this.prompt.style.display = 'block'
@@ -176,26 +277,22 @@ export const markerMoveComponent = {
     })
   },
 
-  startTurnSequence(entity, config) {
+  startTurnSequence(entity) {
+    // 【変更】 config ではなく this.data (UI値) を使用する
+
     // 1. 指定時間後に曲がる
     this.timer1 = setTimeout(() => {
       if (!this.modelEntity) return
 
       const axis = new THREE.Vector3(0, 1, 0)
-      // 角度をラジアンに変換して回転
-      // 時計回りがマイナス、反時計回りがプラス
-      const radians = (config.turnAngle * Math.PI) / 180
-
-      // ベクトルを回転
+      const radians = (this.data.turnAngle * Math.PI) / 180
       this.modelDirection.applyAxisAngle(axis, radians)
-
-      // モデル自体の向きも更新
       this.updateRotation(entity, this.modelDirection)
 
-    }, config.timeBeforeTurn)
+    }, this.data.timeBeforeTurn)
 
     // 2. さらに指定時間後に消える（合計時間後）
-    const totalTime = config.timeBeforeTurn + config.timeAfterTurn
+    const totalTime = this.data.timeBeforeTurn + this.data.timeAfterTurn
     this.timer2 = setTimeout(() => {
       if (!this.modelEntity) return
       this.resetModel()
@@ -213,6 +310,12 @@ export const markerMoveComponent = {
       this.modelEntity.parentNode.removeChild(this.modelEntity)
       this.modelEntity = null
     }
+
+    // 校長先生も消す必要があるが、this.modelEntityしか保持していない...
+    // 簡易的に、シーン内の #principalModel を持つエンティティを全て消す
+    const principals = document.querySelectorAll('[gltf-model="#principalModel"]')
+    principals.forEach(p => p.parentNode.removeChild(p))
+
     this.prompt.innerHTML = 'マーカーをスキャンしてください'
     this.prompt.style.display = 'block'
   },
@@ -226,7 +329,7 @@ export const markerMoveComponent = {
     if (this.state !== 'moving' || !this.modelEntity || !this.currentConfig) return
     if (this.currentConfig.type === 'goal') return
 
-    const speed = this.currentConfig.speed || 0.5
+    const speed = this.data.speed // 【変更】this.data (UI値) を使用
     const moveVector = this.modelDirection.clone().multiplyScalar(speed * (timeDelta / 1000))
     this.modelEntity.object3D.position.add(moveVector)
   },
