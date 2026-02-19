@@ -38,9 +38,12 @@
   pointer-events: auto;
 }
 
+#settingsPanel {
   position: absolute;
-  top: 50px; /* Move to top to allow more space downwards, or keep bottom */
-  bottom: 20px; /* Stretch to fill vertical space if needed, or use max-height */
+  top: 50px;
+  /* Move to top to allow more space downwards, or keep bottom */
+  bottom: 20px;
+  /* Stretch to fill vertical space if needed, or use max-height */
   left: 10px;
   z-index: 200;
   background: rgba(0, 0, 0, 0.8);
@@ -48,11 +51,14 @@
   border-radius: 10px;
   color: white;
   font-family: sans-serif;
-  width: 260px; /* Slightly wider */
+  width: 260px;
+  /* Slightly wider */
   pointer-events: auto;
   transition: transform 0.3s ease, opacity 0.3s ease;
-  max-height: 80vh; /* Limit height */
-  overflow-y: auto; /* Enable scrolling */
+  max-height: 80vh;
+  /* Limit height */
+  overflow-y: auto;
+  /* Enable scrolling */
 }
 
 .hidden {
@@ -62,12 +68,14 @@
 .setting-row {
   margin-bottom: 12px;
 }
+
 .setting-row label {
   display: block;
   font-size: 12px;
   margin-bottom: 5px;
   color: #5ac8fa;
 }
+
 .setting-row input {
   width: 100%;
 }
