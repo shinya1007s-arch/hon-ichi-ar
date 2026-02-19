@@ -102,7 +102,8 @@ export const markerMoveComponent = {
       this.modelEntity.setAttribute('scale', `${s} ${s} ${s}`)
 
       const principals = document.querySelectorAll('[gltf-model="#principalModel"]')
-      principals.forEach(p => p.setAttribute('scale', `${s} ${s} ${s}`))
+      const pScale = s * 3
+      principals.forEach(p => p.setAttribute('scale', `${pScale} ${pScale} ${pScale}`))
     }
   },
 
@@ -210,9 +211,10 @@ export const markerMoveComponent = {
             z: pRot.z
           })
           principalEntity.setAttribute('visible', 'true')
+          const pTargetScale = targetScale * 3
           principalEntity.setAttribute('animation', {
             property: 'scale',
-            to: `${targetScale} ${targetScale} ${targetScale}`,
+            to: `${pTargetScale} ${pTargetScale} ${pTargetScale}`,
             easing: 'easeOutElastic',
             dur: 800,
             fill: 'forwards',

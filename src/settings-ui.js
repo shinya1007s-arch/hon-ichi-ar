@@ -38,7 +38,7 @@ export const settingsUiComponent = {
 
       // 大きさ調整
       if (config.scale !== undefined) {
-        this.createSlider(section, '大きさ', config.scale, 0.5, 100.0, 0.5, (val) => {
+        this.createSlider(section, '大きさ', config.scale, 0.5, 50.0, 0.5, (val) => {
           config.scale = parseFloat(val);
           this.notifyUpdate(markerName);
         });
