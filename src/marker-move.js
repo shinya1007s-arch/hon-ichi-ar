@@ -1,10 +1,10 @@
 // marker-move.js
 export const markerMoveComponent = {
   schema: {
-    speed: {default: 0.5},
-    modelScale: {default: 5.0},
-    timeBeforeTurn: {default: 30000},
-    timeAfterTurn: {default: 10000},
+    speed: { default: 0.5 },
+    modelScale: { default: 5.0 },
+    timeBeforeTurn: { default: 30000 },
+    timeAfterTurn: { default: 10000 },
   },
 
   init() {
@@ -37,10 +37,10 @@ export const markerMoveComponent = {
     const yawOnlyQuaternion = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, euler.y, 0))
 
     switch (markerName) {
-      case 'ForwardMarker': baseDirection = new THREE.Vector3(0, 0, -1); promptMessage = '【前】へ進みます'; break
-      case 'BackMarker': baseDirection = new THREE.Vector3(0, 0, 1); promptMessage = '【後】へ進みます'; break
-      case 'LeftMarker': baseDirection = new THREE.Vector3(-1, 0, 0); promptMessage = '【左】へ進みます'; break
-      case 'RightMarker': baseDirection = new THREE.Vector3(1, 0, 0); promptMessage = '【右】へ進みます'; break
+      // case 'ForwardMarker': baseDirection = new THREE.Vector3(0, 0, -1); promptMessage = '【前】へ進みます'; break
+      // case 'BackMarker': baseDirection = new THREE.Vector3(0, 0, 1); promptMessage = '【後】へ進みます'; break
+      // case 'LeftMarker': baseDirection = new THREE.Vector3(-1, 0, 0); promptMessage = '【左】へ進みます'; break
+      // case 'RightMarker': baseDirection = new THREE.Vector3(1, 0, 0); promptMessage = '【右】へ進みます'; break
       case 'GoDownTheStairsMarker':
         baseDirection = new THREE.Vector3(0, 0, -1)
         promptMessage = '【階段モード】'
@@ -93,7 +93,7 @@ export const markerMoveComponent = {
       }
 
       newElement.setAttribute('visible', 'true')
-      newElement.setAttribute('animation-mixer', {clip: '*', loop: 'repeat'})
+      newElement.setAttribute('animation-mixer', { clip: '*', loop: 'repeat' })
       const scale = this.data.modelScale
       newElement.setAttribute('animation', {
         property: 'scale',
