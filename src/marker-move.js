@@ -8,11 +8,11 @@ export const MARKER_CONFIG = {
     type: 'turn_sequence',
     model: '#ichiModel',   // 使用する3DモデルのID
     message: 'スタート【右折】開始', // 画面に表示するメッセージ
-    speed: 0.5,            // 移動速度 (m/s)
-    scale: 5.0,            // モデルの大きさ
-    timeBeforeTurn: 3000,  // 曲がるまでの直進時間 (ミリ秒)
+    speed: 8.1,            // 移動速度 (m/s)
+    scale: 2.0,            // モデルの大きさ
+    timeBeforeTurn: 10000,  // 曲がるまでの直進時間 (ミリ秒)
     turnAngle: -90,        // 曲がる角度 (度数法。マイナスで右、プラスで左)
-    timeAfterTurn: 3000,   // 曲がった後の直進時間 (ミリ秒)
+    timeAfterTurn: 1000,   // 曲がった後の直進時間 (ミリ秒)
   },
 
   // 左折するマーカー
@@ -20,11 +20,11 @@ export const MARKER_CONFIG = {
     type: 'turn_sequence',
     model: '#ichiModel',
     message: 'スタート【左折】開始',
-    speed: 0.5,
-    scale: 5.0,
-    timeBeforeTurn: 3000,
+    speed: 9.6,
+    scale: 2.0,
+    timeBeforeTurn: 10000,
     turnAngle: 90,
-    timeAfterTurn: 3000,
+    timeAfterTurn: 1000,
   },
 
   // 階段を降りるマーカー（既存）
@@ -32,11 +32,11 @@ export const MARKER_CONFIG = {
     type: 'turn_sequence',
     model: '#ichiModel',
     message: '【階段モード】',
-    speed: 0.5,
-    scale: 5.0,
-    timeBeforeTurn: 30000, // 30秒直進
+    speed: 12.0,
+    scale: 10.0,
+    timeBeforeTurn: 7000, // 30秒直進
     turnAngle: -90,        // 右へ90度
-    timeAfterTurn: 10000,  // 10秒直進して消える
+    timeAfterTurn: 2000,  // 10秒直進して消える
   },
 
   // ゴールマーカー（既存）
@@ -44,7 +44,7 @@ export const MARKER_CONFIG = {
     type: 'goal',
     model: '#goalModel',
     message: '【ゴール】認識！',
-    scale: 5.0,
+    scale: 2.0,
   }
 }
 
@@ -102,7 +102,7 @@ export const markerMoveComponent = {
       this.modelEntity.setAttribute('scale', `${s} ${s} ${s}`)
 
       const principals = document.querySelectorAll('[gltf-model="#principalModel"]')
-      const pScale = s * 3
+      const pScale = s * 2
       principals.forEach(p => p.setAttribute('scale', `${pScale} ${pScale} ${pScale}`))
     }
   },
@@ -211,7 +211,7 @@ export const markerMoveComponent = {
             z: pRot.z
           })
           principalEntity.setAttribute('visible', 'true')
-          const pTargetScale = targetScale * 3
+          const pTargetScale = targetScale * 2
           principalEntity.setAttribute('animation', {
             property: 'scale',
             to: `${pTargetScale} ${pTargetScale} ${pTargetScale}`,

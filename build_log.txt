@@ -1,0 +1,186 @@
+assets by status 286 MiB [cached] 107 assets
+orphan modules 16.5 KiB [orphan] 4 modules
+runtime modules 698 bytes 4 modules
+modules by path ../ 9.45 KiB
+  javascript modules 8.15 KiB
+    modules by path ../node_modules/style-loader/dist/runtime/*.js 5.84 KiB 6 modules
+    modules by path ../node_modules/css-loader/dist/runtime/*.js 2.31 KiB 2 modules
+  json modules 1.3 KiB
+    ../image-targets/GoDownTheStairsMarker.json 339 bytes [built] [code generated]
+    ../image-targets/HonIchi_Goal2.json 323 bytes [built] [code generated]
+    ../image-targets/Ichi_Start_RightTurn.json 337 bytes [built] [code generated]
+    ../image-targets/Hon_Start_LeftTurn.json 333 bytes [built] [code generated]
+modules by path ./ 19 KiB
+  ./app.js + 4 modules 17.5 KiB [built] [code generated]
+  ../node_modules/css-loader/dist/cjs.js!./index.css 1.57 KiB [built] [code generated]
+
+ERROR in Error: Child compilation failed:
+  Module not found: Error: Can't resolve './assets/Principal.glb' in '/Users/app  le/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/src'
+  ModuleNotFoundError: Module not found: Error: Can't resolve './assets/Principa  l.glb' in '/Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/  src'
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/webpack/lib/Compilation.js:2073:28
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/webpack/lib/NormalModuleFactory.js:1041:13
+      at eval (eval at create (/Users/apple/Documents/tokudai/Laboratory/国府支援学校/  hon-ichi-ar-three/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymo  us>:10:1)
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/webpack/lib/NormalModuleFactory.js:437:22
+      at eval (eval at create (/Users/apple/Documents/tokudai/Laboratory/国府支援学校/  hon-ichi-ar-three/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymo  us>:9:1)
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/webpack/lib/NormalModuleFactory.js:622:22
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/webpack/lib/NormalModuleFactory.js:181:10
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/webpack/lib/NormalModuleFactory.js:894:25
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/webpack/lib/NormalModuleFactory.js:1126:8
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/webpack/lib/NormalModuleFactory.js:1255:5
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/neo-async/async.js:6883:13
+      at Array.<anonymous> (/Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon  -ichi-ar-three/node_modules/webpack/lib/NormalModuleFactory.js:1230:14)
+      at arrayEachFunc (/Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ich  i-ar-three/node_modules/neo-async/async.js:2517:19)
+      at Object.parallel (/Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-i  chi-ar-three/node_modules/neo-async/async.js:6858:9)
+      at NormalModuleFactory._resolveResourceErrorHints (/Users/apple/Documents/  tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node_modules/webpack/lib/NormalMod  uleFactory.js:1154:12)
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/webpack/lib/NormalModuleFactory.js:1086:18
+      at finishWithoutResolve (/Users/apple/Documents/tokudai/Laboratory/国府支援学校/  hon-ichi-ar-three/node_modules/enhanced-resolve/lib/Resolver.js:589:11)
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/enhanced-resolve/lib/Resolver.js:678:14
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/enhanced-resolve/lib/Resolver.js:739:5
+      at eval (eval at create (/Users/apple/Documents/tokudai/Laboratory/国府支援学校/  hon-ichi-ar-three/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymo  us>:15:1)
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/enhanced-resolve/lib/Resolver.js:739:5
+      at eval (eval at create (/Users/apple/Documents/tokudai/Laboratory/国府支援学校/  hon-ichi-ar-three/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymo  us>:27:1)
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/enhanced-resolve/lib/DescriptionFilePlugin.js:89:43
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/enhanced-resolve/lib/Resolver.js:739:5
+      at eval (eval at create (/Users/apple/Documents/tokudai/Laboratory/国府支援学校/  hon-ichi-ar-three/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymo  us>:15:1)
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/enhanced-resolve/lib/Resolver.js:739:5
+      at eval (eval at create (/Users/apple/Documents/tokudai/Laboratory/国府支援学校/  hon-ichi-ar-three/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymo  us>:16:1)
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/enhanced-resolve/lib/Resolver.js:739:5
+      at eval (eval at create (/Users/apple/Documents/tokudai/Laboratory/国府支援学校/  hon-ichi-ar-three/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymo  us>:16:1)
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/enhanced-resolve/lib/Resolver.js:739:5
+      at eval (eval at create (/Users/apple/Documents/tokudai/Laboratory/国府支援学校/  hon-ichi-ar-three/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymo  us>:27:1)
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/enhanced-resolve/lib/DescriptionFilePlugin.js:89:43
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/enhanced-resolve/lib/Resolver.js:739:5
+      at eval (eval at create (/Users/apple/Documents/tokudai/Laboratory/国府支援学校/  hon-ichi-ar-three/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymo  us>:16:1)
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/enhanced-resolve/lib/Resolver.js:739:5
+      at eval (eval at create (/Users/apple/Documents/tokudai/Laboratory/国府支援学校/  hon-ichi-ar-three/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymo  us>:15:1)
+      at /Users/apple/Documents/tokudai/Laboratory/国府支援学校/hon-ichi-ar-three/node  _modules/enhanced-resolve/lib/DirectoryExistsPlugin.js:43:15
+      at process.processTicksAndRejections (node:internal/process/task_queues:88  :21)
+  
+  - Compilation.js:2073 
+    [hon-ichi-ar-three]/[webpack]/lib/Compilation.js:2073:28
+  
+  - NormalModuleFactory.js:1041 
+    [hon-ichi-ar-three]/[webpack]/lib/NormalModuleFactory.js:1041:13
+  
+  
+  - NormalModuleFactory.js:437 
+    [hon-ichi-ar-three]/[webpack]/lib/NormalModuleFactory.js:437:22
+  
+  
+  - NormalModuleFactory.js:622 
+    [hon-ichi-ar-three]/[webpack]/lib/NormalModuleFactory.js:622:22
+  
+  - NormalModuleFactory.js:181 
+    [hon-ichi-ar-three]/[webpack]/lib/NormalModuleFactory.js:181:10
+  
+  - NormalModuleFactory.js:894 
+    [hon-ichi-ar-three]/[webpack]/lib/NormalModuleFactory.js:894:25
+  
+  - NormalModuleFactory.js:1126 
+    [hon-ichi-ar-three]/[webpack]/lib/NormalModuleFactory.js:1126:8
+  
+  - NormalModuleFactory.js:1255 
+    [hon-ichi-ar-three]/[webpack]/lib/NormalModuleFactory.js:1255:5
+  
+  - async.js:6883 
+    [hon-ichi-ar-three]/[neo-async]/async.js:6883:13
+  
+  - NormalModuleFactory.js:1230 Array.<anonymous>
+    [hon-ichi-ar-three]/[webpack]/lib/NormalModuleFactory.js:1230:14
+  
+  - async.js:2517 arrayEachFunc
+    [hon-ichi-ar-three]/[neo-async]/async.js:2517:19
+  
+  - async.js:6858 Object.parallel
+    [hon-ichi-ar-three]/[neo-async]/async.js:6858:9
+  
+  - NormalModuleFactory.js:1154 NormalModuleFactory._resolveResourceErrorHints
+    [hon-ichi-ar-three]/[webpack]/lib/NormalModuleFactory.js:1154:12
+  
+  - NormalModuleFactory.js:1086 
+    [hon-ichi-ar-three]/[webpack]/lib/NormalModuleFactory.js:1086:18
+  
+  - Resolver.js:589 finishWithoutResolve
+    [hon-ichi-ar-three]/[enhanced-resolve]/lib/Resolver.js:589:11
+  
+  - Resolver.js:678 
+    [hon-ichi-ar-three]/[enhanced-resolve]/lib/Resolver.js:678:14
+  
+  - Resolver.js:739 
+    [hon-ichi-ar-three]/[enhanced-resolve]/lib/Resolver.js:739:5
+  
+  
+  - Resolver.js:739 
+    [hon-ichi-ar-three]/[enhanced-resolve]/lib/Resolver.js:739:5
+  
+  
+  - DescriptionFilePlugin.js:89 
+    [hon-ichi-ar-three]/[enhanced-resolve]/lib/DescriptionFilePlugin.js:89:43
+  
+  - Resolver.js:739 
+    [hon-ichi-ar-three]/[enhanced-resolve]/lib/Resolver.js:739:5
+  
+  
+  - Resolver.js:739 
+    [hon-ichi-ar-three]/[enhanced-resolve]/lib/Resolver.js:739:5
+  
+  
+  - Resolver.js:739 
+    [hon-ichi-ar-three]/[enhanced-resolve]/lib/Resolver.js:739:5
+  
+  
+  - Resolver.js:739 
+    [hon-ichi-ar-three]/[enhanced-resolve]/lib/Resolver.js:739:5
+  
+  
+  - DescriptionFilePlugin.js:89 
+    [hon-ichi-ar-three]/[enhanced-resolve]/lib/DescriptionFilePlugin.js:89:43
+  
+  - Resolver.js:739 
+    [hon-ichi-ar-three]/[enhanced-resolve]/lib/Resolver.js:739:5
+  
+  
+  - Resolver.js:739 
+    [hon-ichi-ar-three]/[enhanced-resolve]/lib/Resolver.js:739:5
+  
+  
+  - DirectoryExistsPlugin.js:43 
+    [hon-ichi-ar-three]/[enhanced-resolve]/lib/DirectoryExistsPlugin.js:43:15
+  
+  - task_queues:88 process.processTicksAndRejections
+    node:internal/process/task_queues:88:21
+  
+  - child-compiler.js:211 
+    [hon-ichi-ar-three]/[html-webpack-plugin]/lib/child-compiler.js:211:18
+  
+  - Compiler.js:648 finalCallback
+    [hon-ichi-ar-three]/[webpack]/lib/Compiler.js:648:5
+  
+  - Compiler.js:684 
+    [hon-ichi-ar-three]/[webpack]/lib/Compiler.js:684:11
+  
+  - Compiler.js:1379 
+    [hon-ichi-ar-three]/[webpack]/lib/Compiler.js:1379:17
+  
+  
+  - Hook.js:21 Hook.CALL_ASYNC_DELEGATE [as _callAsync]
+    [hon-ichi-ar-three]/[tapable]/lib/Hook.js:21:14
+  
+  - Compiler.js:1375 
+    [hon-ichi-ar-three]/[webpack]/lib/Compiler.js:1375:33
+  
+  - Compilation.js:3183 finalCallback
+    [hon-ichi-ar-three]/[webpack]/lib/Compilation.js:3183:11
+  
+  - Compilation.js:3521 
+    [hon-ichi-ar-three]/[webpack]/lib/Compilation.js:3521:11
+  
+  
+  - Hook.js:21 Hook.CALL_ASYNC_DELEGATE [as _callAsync]
+    [hon-ichi-ar-three]/[tapable]/lib/Hook.js:21:14
+  
+  - Compilation.js:3514 
+    [hon-ichi-ar-three]/[webpack]/lib/Compilation.js:3514:38
+
+1 ERROR in child compilations (Use 'stats.children: true' resp. '--stats-children' for more details)
+webpack 5.105.2 compiled with 2 errors in 4750 ms
