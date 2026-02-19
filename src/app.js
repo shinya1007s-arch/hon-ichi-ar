@@ -17,6 +17,8 @@ const onxrloaded = () => {
             // require('../image-targets/RightMarker.json'),
             require('../image-targets/GoDownTheStairsMarker.json'),
             require('../image-targets/HonIchi_Goal2.json'),
+            require('../image-targets/Ichi_Start_RightTurn.json'),
+            require('../image-targets/Hon_Start_LeftTurn.json'),
         ],
     })
 }
