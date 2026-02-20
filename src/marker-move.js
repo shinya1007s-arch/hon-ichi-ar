@@ -8,8 +8,8 @@ export const MARKER_CONFIG = {
     type: 'turn_sequence',
     model: '#ichiModel',   // 使用する3DモデルのID
     message: 'スタート【右折】開始', // 画面に表示するメッセージ
-    speed: 8.1,            // 移動速度 (m/s)
-    scale: 2.0,            // モデルの大きさ
+    speed: 6.0,            // 移動速度 (m/s)
+    scale: 1.0,            // モデルの大きさ
     timeBeforeTurn: 10000,  // 曲がるまでの直進時間 (ミリ秒)
     turnAngle: -90,        // 曲がる角度 (度数法。マイナスで右、プラスで左)
     timeAfterTurn: 1000,   // 曲がった後の直進時間 (ミリ秒)
@@ -21,7 +21,7 @@ export const MARKER_CONFIG = {
     model: '#ichiModel',
     message: 'スタート【左折】開始',
     speed: 9.6,
-    scale: 2.0,
+    scale: 1.0,
     timeBeforeTurn: 10000,
     turnAngle: 90,
     timeAfterTurn: 1000,
@@ -32,11 +32,11 @@ export const MARKER_CONFIG = {
     type: 'turn_sequence',
     model: '#ichiModel',
     message: '【階段モード】',
-    speed: 12.0,
-    scale: 10.0,
-    timeBeforeTurn: 7000, // 30秒直進
+    speed: 4.3,
+    scale: 1.0,
+    timeBeforeTurn: 3000, // 30秒直進
     turnAngle: -90,        // 右へ90度
-    timeAfterTurn: 2000,  // 10秒直進して消える
+    timeAfterTurn: 1000,  // 10秒直進して消える
   },
 
   // ゴールマーカー（既存）
